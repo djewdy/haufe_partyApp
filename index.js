@@ -30,7 +30,7 @@ app.use("/api/products", productRoute);
 //app.use("/api/joinParty", joinPartyRoute);
 
 app.listen(PORT || 9000, () => {
-  console.log("This server is runing on ${PORT}");
+  console.log(`This server is runing on ${PORT}`);
 });
 
 //dbusername:joudiammouri
