@@ -54,5 +54,32 @@ joinPartyRoute.post("/assign-task/:partyId", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+// Route to send a message in a party
+joinPartyRoute.post("/send-message/:partyId", async (req, res) => {
+  try {
+    const { partyId } = req.params;
+    const { userId, text } = req.body;
+
+    const updatedParty = await Product.findByIdAndUpdate(
+      partyId,
+      {
+        $push: { messages: { text, sender: userId } },
+      },
+      { new: true }
+    ).populate("messages.sender", "name");
+
+    if (!updatedParty) {
+      return res.status(404).json({ message: "Party not found" });
+    }
+
+    res.status(200).json({
+      message: "Message sent successfully",
+      party: updatedParty,
+    });
+  } catch (error) {
+    console.error("Error sending message:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 module.exports = joinPartyRoute;

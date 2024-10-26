@@ -16,7 +16,10 @@ productRoute.get(
 productRoute.get(
   "/:id",
   asyncHandler(async (req, res) => {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate(
+      "messages.sender",
+      "name"
+    );
     if (product) {
       res.json(product);
     } else {
