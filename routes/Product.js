@@ -3,6 +3,7 @@ const productRoute = express.Router();
 const asyncHandler = require("express-async-handler");
 const Product = require("../models/Product");
 
+// Get all products
 productRoute.get(
   "/",
   asyncHandler(async (req, res) => {
@@ -11,6 +12,7 @@ productRoute.get(
   })
 );
 
+// Get a product by ID
 productRoute.get(
   "/:id",
   asyncHandler(async (req, res) => {
@@ -19,8 +21,29 @@ productRoute.get(
       res.json(product);
     } else {
       res.status(404);
-      throw new Error("not found");
+      throw new Error("Product not found");
     }
+  })
+);
+
+// Create a new product (party)
+productRoute.post(
+  "/",
+  asyncHandler(async (req, res) => {
+    const { title, description, location, creator, todoList } = req.body;
+
+    // Create a new product instance
+    const product = new Product({
+      title,
+      description,
+      location,
+      creator, // Ensure the creator's ObjectId is provided
+      todoList, // This should be an array of tasks
+    });
+
+    // Save the product to the database
+    const createdProduct = await product.save();
+    res.status(201).json(createdProduct);
   })
 );
 
