@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "api": "file:",
     "bcryptjs": "^2.4.3",
     "concurrently": "^9.0.1",
     "dotenv": "^16.4.5",
