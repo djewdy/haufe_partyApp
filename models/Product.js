@@ -9,6 +9,7 @@ const todoSchema = new Schema({
     enum: ["pending", "inprogress", "completed"],
     default: "pending",
   },
+  responsible: { type: Schema.Types.ObjectId, ref: "User" }, // Field to hold the responsible user ID
 });
 
 // Define the Party schema

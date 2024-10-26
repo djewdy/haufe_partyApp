@@ -21,6 +21,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/seed", databaseSeeder);
+app.use("/api/party", joinPartyRoute);
 
 app.use("/api/users", userRoute);
 
@@ -29,7 +30,7 @@ app.use("/api/products", productRoute);
 //app.use("/api/joinParty", joinPartyRoute);
 
 app.listen(PORT || 9000, () => {
-  console.log('This server is runing on ${PORT}');
+  console.log("This server is runing on ${PORT}");
 });
 
 //dbusername:joudiammouri
