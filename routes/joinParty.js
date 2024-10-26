@@ -1,16 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const Party = require('./models/Product'); 
-const router = express.Router();
+const Product = require('../models/Product'); 
+const joinPartyRoute = express.Router();
+
 
 // Route to join a party
-router.post('/join-party/:partyId', async (req, res) => {
+joinPartyRoute.post('/join-party/:partyId', async (req, res) => {
   try {
     const { partyId } = req.params;
     const { userId } = req.body;
 
     // Update the attendees array by adding the userId if it isn't already in the array
-    const updatedParty = await Party.findByIdAndUpdate(
+    const updatedParty = await Product.findByIdAndUpdate(
       partyId,
       { $addToSet: { attendees: mongoose.Types.ObjectId(userId) } },
       { new: true }
@@ -30,4 +31,4 @@ router.post('/join-party/:partyId', async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = joinPartyRoute;
